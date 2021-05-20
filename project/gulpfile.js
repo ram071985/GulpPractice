@@ -5,15 +5,12 @@ const sass = require("gulp-sass");
 
 // sass preprocessing task
 gulp.task("sass", function () {
-  return gulp
-    .src("app/scss/styles.scss")
-    .pipe(sass())
-    .pipe(gulp.dest("app/css"));
+  return gulp.src("app/scss/**/*.scss").pipe(sass()).pipe(gulp.dest("app/css"));
 });
 
 // console task with async function
 gulp.task("hello", async function () {
-  console.log("Hello Sqwenuses of the world");
+  console.log("Hello funky people of the world!");
 });
 
 
@@ -24,4 +21,13 @@ gulp.task("hello", async function () {
 // 2) **/*.scss - pattern that matches any file ending with .scss in the root folder and any child directories
 // 3) !not-me.scss -  In this case, not-me.scss would be excluded from the match
 // 4) *.+(scss|sass) - In this case, Gulp will match any file ending with .scss or .sass in the root folder.
+
+// Watching Sass files for changes aka "watching" via watch() method
+
+gulp.watch("app/scss/**/*.scss", gulp.series(["sass"]));
+
+// multiple watch processes
+gulp.task("watch", function () {
+  gulp.watch("app/scss/**/*.scss", gulp.series('sass'));
+});
 
